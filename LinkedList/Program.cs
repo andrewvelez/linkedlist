@@ -8,8 +8,23 @@ namespace LinkedList
 {
     public class Program
     {
-        public static void Main(string[] args)
+
+        public enum ExitCode
         {
+            Success = 0,
+            Error = 1
+        }
+
+        public static int Main(string[] args)
+        {
+            ExitCode? finalExitCode = null;
+
+            while (finalExitCode != null)
+            {
+
+            }
+
+            return (int)finalExitCode;
         }
     }
 }
