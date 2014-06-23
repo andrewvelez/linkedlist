@@ -11,78 +11,62 @@ namespace LinkedList
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Return the 5th node from the end of a singly linked list [all unexpected input will exit].");
-            Console.WriteLine("Choose [1] integers or [2] strings: ");
+            Console.WriteLine("Returns the 5th node from the end of a singly linked list [unexpected input will exit].");
+            Console.WriteLine("Enter the first list as a CSV of integers: ");
 
-            string menuInput = Console.ReadLine();
+            string inputCsv = Console.ReadLine();
+            Console.Write(Environment.NewLine);
 
-            IFifthElement fifthElement = null;
-            if (menuInput != null)
+            if (string.IsNullOrWhiteSpace(inputCsv))
             {
-                if (menuInput == "1")
+                Console.WriteLine("exiting...");
+                return;
+            }
+            else
+            {
+                List<int> inputIntegerList = Program.GetIntegerList(inputCsv);
+                if (inputIntegerList == null)
                 {
-                    fifthElement = new FifthElement<int>();
+                    Console.WriteLine("Not an integer CSV, exiting...");
+                    return;
                 }
-                else if (menuInput == "2")
+                else if (inputIntegerList.Count < 5)
                 {
-                    fifth
+                    Console.WriteLine("Not 5 elements in the list, exiting...");
+                    return;
+                }
+                else
+                {
+                    FifthElement<int> theFifthElement = new FifthElement<int>(inputIntegerList.GetEnumerator());
+                    Console.Write("5th element in the list: ");
+                    Console.WriteLine(theFifthElement.GetFifthFromEndOfList().ToString());
                 }
             }
+
+            Console.WriteLine("");
         }
 
-        private bool TryParseMenuItem(string menuItemInput, out int selectedItem)
+        private static List<int> GetIntegerList(string inputCsv)
         {
-            int menuItem;
-            if (menuItem != null && int.TryParse(menuItemInput, out menuItem) && (menuItem == 1 || menuItem == 2))
+            List<int> inputIntegerList = new List<int>();
+
+            var list = inputCsv.Trim().Trim(',').Split(',').ToList<string>();
+
+            int inputItem;
+            foreach (string item in list)
             {
-                selectedItem = menuItem;
-                return true;
-            }
-
-            selectedItem = 0;
-            return false;
-        }
-
-        private bool TryParseStringCSV(string csvInput, out List<string> parsedList)
-        {
-            if (!string.IsNullOrWhiteSpace(csvInput))
-            {
-                string trimmedInput = csvInput.Trim().Trim(',');
-                parsedList = trimmedInput.Split(',').ToList<string>();
-                return true;
-            }
-
-            parsedList = null;
-            return false;
-        }
-
-        private bool TryParseIntegerCSV(string csvInput, out List<int> parsedList)
-        {
-            List<int> integerInputList = new List<int>();
-            List<string> stringInputList = null;
-
-            if (TryParseStringCSV(csvInput, out stringInputList))
-            {
-                int parsedInt;
-                foreach (string item in stringInputList)
+                if (int.TryParse(item, out inputItem))
                 {
-                    if (int.TryParse(item, out parsedInt))
-                    {
-                        integerInputList.Add(parsedInt);
-                    }
-                    else
-                    {
-                        parsedList = null;
-                        return false;
-                    }
+                    inputIntegerList.Add(inputItem);
                 }
-
-                parsedList = integerInputList;
-                return true;
+                else
+                {
+                    inputIntegerList = null;
+                    break;
+                }
             }
 
-            parsedList = null;
-            return false;
+            return inputIntegerList;
         }
 
     }
