@@ -9,13 +9,13 @@ namespace LinkedList
     public interface IProgramStep
     {
 
-        public string InputTextPrompt { get; }
+        string InputTextPrompt { get; }
 
-        public bool IsUserInputInvalid { get; private set; }
+        bool IsUserInputValid { get; }
 
-        public string ResultText { get; private set; }
+        string ResultText { get; }
 
-        public void ExecuteUserInput(string userInput);
+        void ExecuteUserInput(string userInput);
 
     }
 }

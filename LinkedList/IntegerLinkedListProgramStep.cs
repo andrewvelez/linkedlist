@@ -9,37 +9,66 @@ namespace LinkedList
     public class IntegerLinkedListProgramStep : IProgramStep
     {
 
+        public IntegerLinkedListProgramStep()
+        {
+            IsUserInputValid = true;
+        }
+
         public string InputTextPrompt
         {
             get
             {
-                return "Returns the 5th node from the end of a singly linked list [unexpected input will exit]." +
+                return Environment.NewLine + "Returns the 5th node from the end of a singly linked list [unexpected input will exit]." +
                     Environment.NewLine + "Enter the first list as a CSV of integers: ";
             }
         }
 
-        public bool IsUserInputInvalid { get; private set; }
+        public bool IsUserInputValid { get; private set; }
 
         public string ResultText { get; private set; }
 
         public void ExecuteUserInput(string input)
         {
             ValidateEmpty(input);
-            ValidateIntegers(input);
+            List<int> inputIntegerList = GetIntegerList(input);
+            ValidateIntegerList(inputIntegerList);
+            ValidateHasFiveElements(inputIntegerList);
+
+            int fifthElement = GetFifthElement(inputIntegerList);
+            ResultText = "The Fifth Element from the end is: " + fifthElement.ToString() + Environment.NewLine;
         }
 
         private void ValidateEmpty(string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
+            if (IsUserInputValid && string.IsNullOrWhiteSpace(input))
             {
-                ResultText
-                IsUserInputInvalid = true;
+                ResultText = "input was empty, exiting...";
+                IsUserInputValid = false;
             }
         }
 
-        private void ValidateIntegers(string input)
+        private void ValidateIntegerList(List<int> inputIntegerList)
         {
+            if (IsUserInputValid && inputIntegerList == null)
+            {
+                ResultText = "input was not a CSV of integers, exiting...";
+                IsUserInputValid = false;
+            }
+        }
 
+        private void ValidateHasFiveElements(List<int> inputIntegerList)
+        {
+            if (IsUserInputValid && inputIntegerList.Count < 5)
+            {
+                ResultText = "input CSV does not have at least 5 elements, exiting...";
+                IsUserInputValid = false;
+            }
+        }
+
+        private int GetFifthElement(List<int> inputIntegerList)
+        {
+            FifthElement<int> fifth = new FifthElement<int>(inputIntegerList.GetEnumerator());
+            return fifth.GetFifthFromEndOfList();
         }
 
         private List<int> GetIntegerList(string inputCsv)

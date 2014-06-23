@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FifthElementFactory.cs" />
     <Compile Include="FifthElement`1.cs" />
     <Compile Include="IntegerLinkedListProgramStep.cs" />
     <Compile Include="Program.cs" />

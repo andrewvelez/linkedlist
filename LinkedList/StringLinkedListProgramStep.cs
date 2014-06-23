@@ -9,6 +9,11 @@ namespace LinkedList
     public class StringLinkedListProgramStep : IProgramStep
     {
 
+        public StringLinkedListProgramStep()
+        {
+            IsUserInputValid = true;
+        }
+
         public string InputTextPrompt
         {
             get
@@ -17,15 +22,9 @@ namespace LinkedList
             }
         }
 
-        public bool IsUserInputInvalid
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public bool IsUserInputValid { get; private set; }
 
-        public string ResultText
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public string ResultText { get; private set; }
 
         public void ExecuteUserInput(string userInput)
         {
