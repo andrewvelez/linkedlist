@@ -43,7 +43,27 @@ namespace LinkedList
                 }
             }
 
-            Console.WriteLine("");
+            Console.Write(Environment.NewLine);
+            Console.WriteLine("Enter the second list as a CSV of strings: ");
+
+            foreach (IProgramStep step in Program.GetOrderedProgramSteps())
+            {
+                Console.Write(step.InputTextPrompt);
+                step.ExecuteUserInput(Console.ReadLine());
+                step.GetResultText();
+                if (step.IsUserInputInvalid)
+                {
+                    return;
+                }
+            }
+        }
+
+        private static List<IProgramStep> GetOrderedProgramSteps()
+        {
+            List<IProgramStep> steps = new List<IProgramStep>();
+            steps.Add(new IntegerLinkedListProgramStep());
+            steps.Add(new StringLinkedListProgramStep());
+            return steps;
         }
 
         private static List<int> GetIntegerList(string inputCsv)
