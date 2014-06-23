@@ -9,22 +9,81 @@ namespace LinkedList
     public class Program
     {
 
-        public enum ExitCode
+        public static void Main(string[] args)
         {
-            Success = 0,
-            Error = 1
+            Console.WriteLine("Return the 5th node from the end of a singly linked list [all unexpected input will exit].");
+            Console.WriteLine("Choose [1] integers or [2] strings: ");
+
+            string menuInput = Console.ReadLine();
+
+            IFifthElement fifthElement = null;
+            if (menuInput != null)
+            {
+                if (menuInput == "1")
+                {
+                    fifthElement = new FifthElement<int>();
+                }
+                else if (menuInput == "2")
+                {
+                    fifth
+                }
+            }
         }
 
-        public static int Main(string[] args)
+        private bool TryParseMenuItem(string menuItemInput, out int selectedItem)
         {
-            ExitCode? finalExitCode = null;
-
-            while (finalExitCode != null)
+            int menuItem;
+            if (menuItem != null && int.TryParse(menuItemInput, out menuItem) && (menuItem == 1 || menuItem == 2))
             {
-
+                selectedItem = menuItem;
+                return true;
             }
 
-            return (int)finalExitCode;
+            selectedItem = 0;
+            return false;
         }
+
+        private bool TryParseStringCSV(string csvInput, out List<string> parsedList)
+        {
+            if (!string.IsNullOrWhiteSpace(csvInput))
+            {
+                string trimmedInput = csvInput.Trim().Trim(',');
+                parsedList = trimmedInput.Split(',').ToList<string>();
+                return true;
+            }
+
+            parsedList = null;
+            return false;
+        }
+
+        private bool TryParseIntegerCSV(string csvInput, out List<int> parsedList)
+        {
+            List<int> integerInputList = new List<int>();
+            List<string> stringInputList = null;
+
+            if (TryParseStringCSV(csvInput, out stringInputList))
+            {
+                int parsedInt;
+                foreach (string item in stringInputList)
+                {
+                    if (int.TryParse(item, out parsedInt))
+                    {
+                        integerInputList.Add(parsedInt);
+                    }
+                    else
+                    {
+                        parsedList = null;
+                        return false;
+                    }
+                }
+
+                parsedList = integerInputList;
+                return true;
+            }
+
+            parsedList = null;
+            return false;
+        }
+
     }
 }
