@@ -66,28 +66,5 @@ namespace LinkedList
             return steps;
         }
 
-        private static List<int> GetIntegerList(string inputCsv)
-        {
-            List<int> inputIntegerList = new List<int>();
-
-            var list = inputCsv.Trim().Trim(',').Split(',').ToList<string>();
-
-            int inputItem;
-            foreach (string item in list)
-            {
-                if (int.TryParse(item, out inputItem))
-                {
-                    inputIntegerList.Add(inputItem);
-                }
-                else
-                {
-                    inputIntegerList = null;
-                    break;
-                }
-            }
-
-            return inputIntegerList;
-        }
-
     }
 }
