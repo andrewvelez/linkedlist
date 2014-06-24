@@ -11,26 +11,15 @@ namespace LinkedList
 
         public static void Main(string[] args)
         {
-            foreach (IProgramStep step in Program.GetOrderedProgramSteps())
-            {
-                Console.Write(step.InputTextPrompt);
-                step.ExecuteUserInput(Console.ReadLine());
-                Console.WriteLine(step.ResultText);
-                if (!step.IsUserInputValid)
-                {
-                    return;
-                }
-            }
-        }
+            Console.Write("Enter the first list as a CSV of integers: ");
+            string input = Console.ReadLine();
+            var parserInt = new SinglyLinkedListParser<int>(input);
+            Console.WriteLine(parserInt.GetFifthElementResultText());
 
-        //public static IEnumerator<object> ParseSinglyLink
-
-        private static List<IProgramStep> GetOrderedProgramSteps()
-        {
-            List<IProgramStep> steps = new List<IProgramStep>();
-            steps.Add(new IntegerLinkedListProgramStep());
-            steps.Add(new StringLinkedListProgramStep());
-            return steps;
+            Console.Write(Environment.NewLine + "Enter the second list as a CSV of strings: ");
+            input = Console.ReadLine();
+            var parserString = new SinglyLinkedListParser<string>(input);
+            Console.WriteLine(parserString.GetFifthElementResultText());
         }
 
     }

@@ -61,12 +61,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FifthElementTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SinglyLinkedListParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinkedList\LinkedList.csproj">
+      <Project>{a9011b71-a806-4134-a4e2-60bd8666abdf}</Project>
+      <Name>LinkedList</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
